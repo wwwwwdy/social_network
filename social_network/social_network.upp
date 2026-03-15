@@ -1,0 +1,30 @@
+uses
+	Skylark,
+	PostgreSQL,
+	bcrypt,
+	jwt;
+
+file
+	social_network.h,
+	Model.sch,
+	index.witz,
+	types.cpp,
+	types.h,
+	docker-compose.yml,
+	repositories.cpp,
+	repositories.h,
+	auth.cpp,
+	auth.h,
+	services.h,
+	services.cpp,
+	helpers.h,
+	.env,
+	handlers.cpp,
+	Dockerfile,
+	config.cpp,
+	config.h,
+	Main.cpp;
+
+mainconfig
+	"" = "MT";
+

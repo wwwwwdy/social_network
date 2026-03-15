@@ -39,3 +39,11 @@
 
 # debug information files
 *.dwo
+
+# project files
+.env
+social_network/.idea/
+.idea/
+social_network/social_network
+social_network/compile_commands.json
+social_network/index.witz

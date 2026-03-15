@@ -1,0 +1,16 @@
+description "Bcrypt.cpp - modern C++ bcrypt implementation"
+
+file
+    Bcrypt.cpp/src/bcrypt.cpp,
+    Bcrypt.cpp/src/blowfish.cpp;
+
+uses
+    Core;
+
+options
+    "-IBcrypt.cpp/include";
+
+include
+    Bcrypt.cpp/include;
+
+library(POSIX) "pthread";

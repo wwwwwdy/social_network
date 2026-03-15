@@ -1,0 +1,24 @@
+description "jwt-cpp (header-only)\377";
+
+charset "UTF-8";
+
+library(OSX) ssl;
+
+library(OSX) crypto;
+
+library(POSIX) ssl;
+
+library(POSIX) crypto;
+
+link(OSX) -L/opt/homebrew/opt/openssl@3/lib;
+
+include
+	jwt-cpp/include,
+	include(OSX),
+	;
+
+file
+	jwt-cpp/include/jwt-cpp/jwt.h,
+	jwt-cpp/include/jwt-cpp/base.h,
+	jwt-cpp/include/picojson/picojson.h;
+
