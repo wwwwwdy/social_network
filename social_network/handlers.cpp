@@ -139,3 +139,50 @@ SKYLARK(Login, "login:POST") {
     http.ContentType("application/json; charset=utf-8");
     http << AsJSON(result);
 }
+
+
+SKYLARK(Search, "user/search") {
+    PostgreSQLSession session;
+    OpenSQL(session);
+
+    UserRepositoryImpl repo(session);
+    UserServiceImpl service(repo);
+
+    String first_name = TrimBoth((String)http["first_name"]);
+    String last_name  = TrimBoth((String)http["last_name"]);
+
+    if(first_name.IsEmpty() || last_name.IsEmpty()) {
+        http.Response(400, "invalid params");
+        http.ContentType("application/json; charset=utf-8");
+
+        ValueMap m = {
+            {"message", "first_name and last_name are required"},
+            {"code", "invalid_params"}
+        };
+
+        http << AsJSON(m);
+        return;
+    }
+
+    const AuthService& auth = GetAuthService();
+
+    ProtectedEndpoint(http, auth, [&](const AuthUser& auth_user) {
+        Value users = service.search_users(first_name, last_name);
+
+        if(IsError(users)) {
+            http.Response(500, "search failed");
+            http.ContentType("application/json; charset=utf-8");
+
+            ValueMap m = {
+                {"message", "search failed"},
+                {"code", "search_failed"}
+            };
+
+            http << AsJSON(m);
+            return;
+        }
+
+        http.ContentType("application/json; charset=utf-8");
+        http << AsJSON(users);
+    });
+}

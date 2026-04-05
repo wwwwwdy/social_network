@@ -26,14 +26,14 @@ RUN mkdir -p /opt/upp/upphub \
     && git clone --depth 1 https://github.com/mirek-fidler/Skylark.git /opt/upp/upphub/Skylark
 
 RUN mkdir -p /app/jwt \
-	&& git clone --depth 1 https://github.com/Thalhammer/jwt-cpp.git /app/jwt/jwt-cpp \
+	&& git clone https://github.com/Thalhammer/jwt-cpp.git /app/jwt/jwt-cpp \
 	&& cd /app/jwt/jwt-cpp \
-	&& git checkout df914eb
+	&& git checkout df914eba76e3dda3ec6b05caef81b1da9ceea6f2
 COPY ./extras/jwt.upp /app/jwt
 
 
 RUN mkdir -p /app/bcrypt \
-	&& git clone --depth 1 https://github.com/hilch/Bcrypt.cpp.git /app/bcrypt/Bcrypt.cpp \
+	&& git clone https://github.com/hilch/Bcrypt.cpp.git /app/bcrypt/Bcrypt.cpp \
 	&& cd /app/bcrypt/Bcrypt.cpp \
 	&& git checkout 0d18b6a
 COPY ./extras/bcrypt.upp /app/bcrypt
