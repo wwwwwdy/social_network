@@ -11,6 +11,7 @@ struct UserService {
 	virtual Value register_user(const CreateUser& user) = 0;
 	virtual Value get_user(int id) = 0;
 	virtual Value login_user(int user_id, String password) = 0;
+	virtual Value search_users(const String& first_name, const String& last_name) = 0;
 };
 
 class UserServiceImpl : public UserService {
@@ -21,6 +22,7 @@ public:
 	Value register_user(const CreateUser& user) override;
 	Value get_user(int id) override;
 	Value login_user(int user_id, String password) override;
+	Value search_users(const String& first_name, const String& last_name) override;
 
 private:
 	UserRepositoryImpl& repo;

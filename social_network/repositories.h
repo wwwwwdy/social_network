@@ -16,6 +16,7 @@ struct UserRepository {
 	virtual Value create(const CreateUser& user) = 0;
 	virtual Value get(int user_id) = 0;
 	virtual Value get_password(int user_id) = 0;
+	virtual Value search(const String& first_name, const String& last_name) = 0;
 };
 
 
@@ -27,6 +28,7 @@ public:
 	Value create(const CreateUser& user);
 	Value get(int user_id);
 	Value get_password(int user_id);
+	Value search(const String& first_name, const String& last_name);
 
 private:
 	PostgreSQLSession& session;

@@ -38,3 +38,7 @@ Value UserServiceImpl::login_user(int user_id, String password) {
 
     return login_info;
 }
+
+Value UserServiceImpl::search_users(const String& first_name, const String& last_name) {
+    return repo.search(first_name, last_name);
+}

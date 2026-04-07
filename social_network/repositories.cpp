@@ -137,3 +137,40 @@ Value UserRepositoryImpl::get_password(int user_id) {
     
     return out;
 }
+
+Value UserRepositoryImpl::search(const String& first_name_part, const String& last_name_part) {
+    Sql sql(session);
+
+    String first_pattern = "%" + first_name_part + "%";
+    String last_pattern  = "%" + last_name_part + "%";
+
+    sql.Execute(
+        "SELECT id, first_name, last_name, birthday, gender, interests, city "
+        "FROM users "
+        "WHERE first_name ILIKE ? AND last_name ILIKE ? "
+        "ORDER BY id",
+        first_pattern, last_pattern
+    );
+
+    if(sql.WasError())
+        return ErrorValue("search failed");
+
+    ValueArray result;
+
+    while(sql.Fetch()) {
+        Date b = (Date)sql["birthday"];
+
+        ValueMap out;
+        out("id",         (int64)sql["id"]);
+        out("first_name", (String)sql["first_name"]);
+        out("last_name",  (String)sql["last_name"]);
+        out("birthday",   Format("%04d-%02d-%02d", b.year, b.month, b.day));
+        out("gender",     (String)sql["gender"]);
+        out("interests",  (String)sql["interests"]);
+        out("city",       (String)sql["city"]);
+
+        result.Add(out);
+    }
+
+    return result;
+}
